@@ -45,8 +45,14 @@ Edit file `configs.json`.
     }
 }
 ```
-# Run Server
+# Run Server & Usage
 Just start script by `node main.js` or using npm script.
 ```bash
 npm run start
 ```
+Add webhook and use payload URL like this.
+```
+https://www.domain.com/?key=YOUR_KEY_FROM_CONFIG&repo=REPO_NAME
+```
+Make sure that your webhook has option similar this image.
+![Webhook Add](https://github.com/l3lackMegas/webhook-auto-pull/raw/main/docs/add-webhook.jpg)
