@@ -1,0 +1,22 @@
+{
+    "key": "123456789",
+    "port": 4545,
+    "repo": {
+        "Repo-Name": {
+            "url": "github.com/User/repo.git",
+            "path": "/local/path/to/repo",
+            "branch": "main",
+            "user": "username",
+            "token": "token-or-account-password",
+            "script": ""
+        },
+        "Repo-Name-2": {
+            "url": "github.com/User/repo2.git",
+            "path": "/local/path/to/repo2",
+            "branch": "main",
+            "user": "username",
+            "token": "token-or-account-password",
+            "script": "ls -al"
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "git-auto-pull",
+  "version": "1.0.0",
+  "description": "The git autopull that you can custom your next event from configs.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "keywords": [
+    "git",
+    "autopull"
+  ],
+  "author": "l3lackMegas",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "debug": "^4.3.2",
+    "express": "^4.17.1",
+    "simple-git": "^2.41.1"
+  }
+}
