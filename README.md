@@ -17,7 +17,7 @@ First, setup config by copy `sample-configs.json` to `configs.json`.
 cp sample-configs.json configs.json
 ```
 Edit file `configs.json`.
-```json
+```js
 
 {
     "key": "123456789", // To verify request
