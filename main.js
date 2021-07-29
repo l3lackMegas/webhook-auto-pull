@@ -23,8 +23,12 @@ app.post('/', function (req, res) {
 
         let repoInfo = CONFIGS.repo[req.query.repo],
             payload = JSON.parse(req.body.payload)
-        
-        if(repoInfo && payload.ref && payload.ref.split('/')[2] == repoInfo.branch) { // Check target repo and branch
+
+        if(!payload.ref) { // Check payload
+            res.json({status: false, message: `Can't find refernce.`})
+            return 0
+        }
+        if(repoInfo && payload.ref.split('/')[2] == repoInfo.branch) { // Check target repo and branch
             const USER = repoInfo.user;
             const PASS = repoInfo.token;
             const REPO = repoInfo.url;
