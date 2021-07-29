@@ -25,6 +25,7 @@ app.post('/', function (req, res) {
             payload = JSON.parse(req.body.payload)
 
         if(!payload.ref) { // Check payload
+            console.log(`Can't find refernce.`)
             res.json({status: false, message: `Can't find refernce.`})
             return 0
         }
@@ -65,7 +66,7 @@ app.post('/', function (req, res) {
                 res.json({status: true, message: 'success'})
             })
             .catch((err) => ()=>{
-                console.log("Fail.")
+                console.log("Fail." + err)
 
                 // Response success
                 res.json({status: false, message: 'Fail: ' + err})
