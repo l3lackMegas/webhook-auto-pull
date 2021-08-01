@@ -50,7 +50,7 @@ app.post('/', async function (req, res) {
                 res.json({status: false, message: 'Fail: ' + err})
                 return 0
             }
-            git.removeRemote(timestamp)
+            git().removeRemote(timestamp)
             // Response success
             git(repoInfo.path).pull(remote, repoInfo.branch).then((status) => { // Start pulling
                 console.log(status)
