@@ -17,7 +17,7 @@ const app = express()
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb' }));
  
-app.post('/', function (req, res) {
+app.post('/', async function (req, res) {
     if(req.query.repo && req.query.key == CONFIGS.key) { // Check key from configs.json
 
         let repoInfo = CONFIGS.repo[req.query.repo],
@@ -37,38 +37,46 @@ app.post('/', function (req, res) {
             console.log(`Start pulling [${repoInfo.branch}] with `, remote)
             console.log("To path: ", repoInfo.path)
             // Response success
-            res.json({status: true, message: 'success'})
+            try {
+                await git(repoInfo.path).pull(remote, repoInfo.branch).then(() => { // Start pulling
 
-            git(repoInfo.path).pull(remote, repoInfo.branch).then(() => { // Start pulling
-
-                console.log("Pull Finish.")
-
-                if(repoInfo.script) { // Check if script exist. You can custom script by configs.json
-
-                    console.log("Running script: ", repoInfo.script)
-
-                    exec(repoInfo.script, { // Execute script after pull repo
-                        cwd: repoInfo.path
-                    }, (error, stdout, stderr) => {
-                        if (error) {
-                            console.log(`error: ${error.message}`);
-                            return;
-                        }
-                        if (stderr) {
-                            console.log(`stderr: ${stderr}`);
-                            return;
-                        }
-
-                        console.log(`stdout: ${stdout}`);
-                    });
-                }
-            })
-            .catch((err) => ()=>{
+                    console.log("Pull Finish.")
+                    res.json({status: true, message: 'success'})
+    
+                    if(repoInfo.script) { // Check if script exist. You can custom script by configs.json
+    
+                        console.log("Running script: ", repoInfo.script)
+    
+                        exec(repoInfo.script, { // Execute script after pull repo
+                            cwd: repoInfo.path
+                        }, (error, stdout, stderr) => {
+                            if (error) {
+                                console.log(`error: ${error.message}`);
+                                return;
+                            }
+                            if (stderr) {
+                                console.log(`stderr: ${stderr}`);
+                                return;
+                            }
+    
+                            console.log(`stdout: ${stdout}`);
+                        });
+                    }
+                })
+                .catch((err) => ()=>{
+                    console.log("Fail." + err)
+    
+                    // Response success
+                    res.json({status: false, message: 'Fail: ' + err})
+                })
+            } catch (error) {
                 console.log("Fail." + err)
-
+    
                 // Response success
                 res.json({status: false, message: 'Fail: ' + err})
-            })
+            }
+            
+            
             return 0
         } else if(payload.ref.split('/')[2] != repoInfo.branch) { // In case doesn't the target branch for pull
 
