@@ -38,8 +38,8 @@ app.post('/', async function (req, res) {
             console.log("To path: ", repoInfo.path)
             let timestamp = Date.now() + 'A'
             try {
-                await git.init();
-                await git.addRemote(timestamp, remote);
+                await git().init();
+                await git().addRemote(timestamp, remote);
             }
             catch (err) { 
                 /* handle all errors here */
