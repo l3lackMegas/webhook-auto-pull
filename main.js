@@ -47,6 +47,7 @@ app.post('/', async function (req, res) {
 
                 // Response success
                 res.json({status: false, message: 'Fail: ' + err})
+                return 0
             }
             git.removeRemote(timestamp)
             // Response success
