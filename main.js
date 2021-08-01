@@ -39,7 +39,9 @@ app.post('/', async function (req, res) {
             let timestamp = Date.now() + 'A'
             try {
                 await git().init();
-                await git().addRemote(timestamp, remote);
+                await git().fetch(remote, repoInfo.branch, (status, err)=>{
+                    console.log(status, err)
+                })
             }
             catch (err) { 
                 /* handle all errors here */
