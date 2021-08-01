@@ -48,7 +48,7 @@ app.post('/', async function (req, res) {
                 console.log("Fail." + err)
 
                 // Response success
-                res.statusCode(500)
+                res.status(500)
                 res.json({status: false, message: 'Fail: ' + err})
                 return 0
             }
@@ -84,7 +84,7 @@ app.post('/', async function (req, res) {
                 console.log("Fail." + err)
 
                 // Response success
-                res.statusCode(500)
+                res.status(500)
                 res.json({status: false, message: 'Fail: ' + err})
             })
             
@@ -94,14 +94,14 @@ app.post('/', async function (req, res) {
 
             console.log(`Not target branch [${payload.ref.split('/')[2]}].`)
             
-            res.statusCode(500) 
+            res.status(500) 
             res.json({status: false, message: 'Not target branch.'})
             return 0
         }
     }
 
     console.log("Wrong request.")
-    res.statusCode(500)
+    res.status(500)
     res.json({status: false, message: 'Wrong request.'}) // Can't accept this request, because got wrong key
 })
 
