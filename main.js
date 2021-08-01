@@ -36,8 +36,21 @@ app.post('/', async function (req, res) {
 
             console.log(`Start pulling [${repoInfo.branch}] with `, remote)
             console.log("To path: ", repoInfo.path)
+            let timestamp = Date.now() + 'A'
+            try {
+                await git.init();
+                await git.addRemote(timestamp, remote);
+            }
+            catch (err) { 
+                /* handle all errors here */
+                console.log("Fail." + err)
+
+                // Response success
+                res.json({status: false, message: 'Fail: ' + err})
+            }
+            git.removeRemote(timestamp)
             // Response success
-            await git(repoInfo.path).pull(remote, repoInfo.branch).then((status) => { // Start pulling
+            git(repoInfo.path).pull(remote, repoInfo.branch).then((status) => { // Start pulling
                 console.log(status)
                 console.log("Pull Finish.")
                 res.json({status: true, message: 'success'})
