@@ -41,7 +41,7 @@ app.post('/', async function (req, res) {
                 await git().init();
                 await git().fetch(remote, repoInfo.branch, (status, err)=>{
                     console.log(status, err)
-                    res.statusCode(200)
+                    res.status(200)
                     res.json({status: true, message: 'success'})
                 })
             }
