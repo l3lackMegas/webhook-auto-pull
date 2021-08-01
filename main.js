@@ -16,7 +16,8 @@ const CONFIGS = JSON.parse(CONFIGS_JSON);
 const express = require('express')
 const app = express()
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json({limit: '100mb'}));
+app.use(express.urlencoded({limit: '100mb' }));
  
 app.post('/', function (req, res) {
     if(req.query.repo && req.query.key == CONFIGS.key) { // Check key from configs.json
