@@ -39,8 +39,7 @@ app.post('/', async function (req, res) {
 
             try {
                 await git().init();
-                await git().fetch(remote, repoInfo.branch, (status, err)=>{
-                    console.log(status, err)
+                await git().fetch(remote, repoInfo.branch, (status)=>{
                     res.status(200)
                     res.json({status: true, message: 'success'})
                 })
@@ -56,7 +55,7 @@ app.post('/', async function (req, res) {
             }
             // Response success
             git(repoInfo.path).pull(remote, repoInfo.branch).then((status) => { // Start pulling
-                console.log(status)
+                
                 console.log("Pull Finish.")
 
                 if(repoInfo.script) { // Check if script exist. You can custom script by configs.json
