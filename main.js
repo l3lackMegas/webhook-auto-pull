@@ -13,6 +13,7 @@ const bodyParser = require('body-parser');
 const CONFIGS_JSON = fs.readFileSync('./configs.json');
 const CONFIGS = JSON.parse(CONFIGS_JSON);
 
+const express = require('express')
 const app = express()
 
 app.use(express.json({limit: '50mb'}));
