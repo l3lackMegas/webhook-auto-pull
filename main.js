@@ -8,8 +8,6 @@ const git = require('simple-git');
 //debug.enable('simple-git,simple-git:*');
 //git().init().then(() => console.log('DONE'));
 
-const bodyParser = require('body-parser');
-
 const CONFIGS_JSON = fs.readFileSync('./configs.json');
 const CONFIGS = JSON.parse(CONFIGS_JSON);
 
@@ -38,6 +36,8 @@ app.post('/', function (req, res) {
 
             console.log(`Start pulling [${repoInfo.branch}] with `, remote)
             console.log("To path: ", repoInfo.path)
+            // Response success
+            res.json({status: true, message: 'success'})
 
             git(repoInfo.path).pull(remote, repoInfo.branch).then(() => { // Start pulling
 
@@ -62,9 +62,6 @@ app.post('/', function (req, res) {
                         console.log(`stdout: ${stdout}`);
                     });
                 }
-
-                // Response success
-                res.json({status: true, message: 'success'})
             })
             .catch((err) => ()=>{
                 console.log("Fail." + err)
