@@ -28,6 +28,15 @@ app.post('/', async function (req, res) {
             res.json({status: false, message: `Can't find refernce.`})
             return 0
         }
+
+        if(!repoInfo) {
+            console.log(`Can not found this repo. [${req.query.repo}]`)
+            
+            res.status(500) 
+            res.json({status: false, message: `Can not found this repo. [${req.query.repo}]`})
+            return 0
+        }
+
         if(repoInfo && payload.ref.split('/')[2] == repoInfo.branch) { // Check target repo and branch
             const USER = repoInfo.user;
             const PASS = repoInfo.token;
@@ -88,7 +97,7 @@ app.post('/', async function (req, res) {
             
             
             return 0
-        } else if(payload.ref.split('/')[2] != repoInfo.branch) { // In case doesn't the target branch for pull
+        } else if(repoInfo && payload.ref.split('/')[2] != repoInfo.branch) { // In case doesn't the target branch for pull
 
             console.log(`Not target branch [${payload.ref.split('/')[2]}].`)
             
