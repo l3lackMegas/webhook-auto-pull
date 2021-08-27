@@ -24,7 +24,7 @@ Edit file `configs.json`.
     "port": 4545, // Port for run web server
     "repo": {
 
-        "Repo-Name": { // To select repo from configs
+        "item-name": { // To select repo from configs
             "url": "github.com/User/repo.git", //
             "path": "/local/path/to/repo",
             "branch": "main",
@@ -33,7 +33,7 @@ Edit file `configs.json`.
             "script": "" // Custom script, Run after finish pulling
         },
 
-        "Repo-Name-2": {
+        "item-name-2": {
             "url": "github.com/User/repo2.git",
             "path": "/local/path/to/repo2",
             "branch": "main",
@@ -52,7 +52,7 @@ npm run start
 ```
 Add webhook and use payload URL like this.
 ```
-https://www.domain.com/?key=YOUR_KEY_FROM_CONFIG&repo=REPO_NAME
+https://www.domain.com/?key=YOUR_KEY_FROM_CONFIG&item=REPO_NAME
 ```
 Make sure that your webhook has option similar this image.
 ![Webhook Add](https://github.com/l3lackMegas/webhook-auto-pull/raw/main/docs/add-webhook.jpg)
