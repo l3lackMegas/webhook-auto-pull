@@ -26,6 +26,7 @@ app.post('/', async function (req, res) {
 
         if(!payload.ref && !payload.zen) { // Check payload
             console.log(`[${item_namespace}] Can't find refernce.`)
+            res.status(500)
             res.json({
                 status: false,
                 message: `Can't find refernce.`,
@@ -34,6 +35,7 @@ app.post('/', async function (req, res) {
             return 0
         } else if(!payload.ref && payload.zen) { // Check payload
             console.log(`[${item_namespace}] Init autopull.`)
+            res.status(202)
             res.json({
                 status: false,
                 message: `[Ignore] This is a request from webhook's test. (${payload.zen})`,
@@ -45,7 +47,7 @@ app.post('/', async function (req, res) {
         if(!repoInfo) {
             console.log(`[${item_namespace}] Can not found this item from configs. [${item_namespace}]`)
             
-            res.status(500) 
+            res.status(500)
             res.json({
                 status: false,
                 message: `Can not found this item from configs. [${item_namespace}]`,
