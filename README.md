@@ -52,7 +52,7 @@ npm run start
 ```
 Add webhook and use payload URL like this.
 ```
-https://www.domain.com/?key=YOUR_KEY_FROM_CONFIG&item=REPO_NAME
+https://www.domain.com/?key=YOUR_KEY_FROM_CONFIG&item=ITEM_NAME_FROM_CONFIG
 ```
 Make sure that your webhook has option similar this image.
 ![Webhook Add](https://github.com/l3lackMegas/webhook-auto-pull/raw/main/docs/add-webhook.jpg)
