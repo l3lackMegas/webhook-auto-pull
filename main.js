@@ -3,6 +3,7 @@ const { exec } = require("child_process");
 const fs = require('fs');
 const debug = require('debug');
 const git = require('simple-git');
+const fetch = require('node-fetch');
 
 /* Enable debug */
 //debug.enable('simple-git,simple-git:*');
@@ -86,7 +87,7 @@ app.post('/', async function (req, res) {
                 return 0
             }
             // Response success
-            git(repoInfo.path).pull(remote, repoInfo.branch).then((status) => { // Start pulling
+            git(repoInfo.path).pull(remote, repoInfo.branch).then(async (status) => { // Start pulling
                 
                 console.log(`[${item_namespace}] Pull Finish.`)
                 console.log(`[${item_namespace}] Webhook action to ${repoInfo.webhook}`)
