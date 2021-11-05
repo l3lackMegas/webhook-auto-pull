@@ -31,7 +31,7 @@ Edit file `configs.json`.
             "user": "git-username",
             "token": "token-or-account-password",
             "script": "", // Custom script, Run after finish pulling
-            "webhook": "http://localhost/" // Request with GET method after git pull successful
+            "webhook": "http://localhost/" // Request with GET method after git pull successfully
         },
 
         "item-name-2": {
