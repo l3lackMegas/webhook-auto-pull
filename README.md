@@ -30,7 +30,8 @@ Edit file `configs.json`.
             "branch": "main",
             "user": "git-username",
             "token": "token-or-account-password",
-            "script": "" // Custom script, Run after finish pulling
+            "script": "", // Custom script, Run after finish pulling
+            "webhook": "http://localhost/" // Request with GET method after git pull successful
         },
 
         "item-name-2": {
@@ -39,7 +40,8 @@ Edit file `configs.json`.
             "branch": "main",
             "user": "username",
             "token": "token-or-account-password",
-            "script": "ls -al"
+            "script": "ls -al",
+            "webhook": "http://localhost/"
         }
 
     }

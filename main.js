@@ -89,6 +89,9 @@ app.post('/', async function (req, res) {
             git(repoInfo.path).pull(remote, repoInfo.branch).then((status) => { // Start pulling
                 
                 console.log(`[${item_namespace}] Pull Finish.`)
+                console.log(`[${item_namespace}] Webhook action to ${repoInfo.webhook}`)
+                const responseWebhook = await fetch(repoInfo.webhook);
+                console.log(`[${item_namespace}] ${responseWebhook.status == 200 ? "Finished " : "Failed"} with status ${responseWebhook.status}.`)
 
                 if(repoInfo.script) { // Check if script exist. You can custom script by configs.json
 

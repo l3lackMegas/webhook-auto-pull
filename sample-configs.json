@@ -8,7 +8,8 @@
             "branch": "main",
             "user": "username",
             "token": "token-or-account-password",
-            "script": ""
+            "script": "",
+            "webhook": "http://localhost/"
         },
         "Repo-Name-2": {
             "url": "github.com/User/repo2.git",
@@ -16,7 +17,8 @@
             "branch": "main",
             "user": "username",
             "token": "token-or-account-password",
-            "script": "ls -al"
+            "script": "ls -al",
+            "webhook": "http://localhost/"
         }
     }
 }
