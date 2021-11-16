@@ -91,9 +91,7 @@ app.post('/', async function (req, res) {
             const REPO = repoInfo.url;
             const remote = `https://${USER}:${PASS}@${REPO}`; // Remote url
 
-            console.log(`[${item_namespace}] Start pulling (${repoInfo.branch}) with `, remote)
-            console.log(`[${item_namespace}] To path: `, repoInfo.path)
-
+            console.log(`[${item_namespace}] Fetching...: `)
             try {
                 await git().init();
                 await git().fetch(remote, repoInfo.branch, (status)=>{
@@ -114,6 +112,9 @@ app.post('/', async function (req, res) {
                 })
                 return 0
             }
+
+            console.log(`[${item_namespace}] Start pulling (${repoInfo.branch}) with `, remote)
+            console.log(`[${item_namespace}] To path: `, repoInfo.path)
             // Response success
             git(repoInfo.path).pull(remote, repoInfo.branch).then(async (status) => { // Start pulling
                 
