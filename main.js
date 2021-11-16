@@ -24,20 +24,33 @@ app.post('/', async function (req, res) {
 
         let repoInfo = CONFIGS.repo[item_namespace],
             payload = {}
-        try {
-            payload = JSON.parse(req.body.payload)
-        } catch (error) {
+        if(req.body.payload) {
+            try {
+                payload = JSON.parse(req.body.payload)
+            } catch (error) {
+                /* handle all errors here */
+                console.log(`[${item_namespace}] Fail.` + error)
+    
+                // Response success
+                res.status(500)
+                res.json({
+                    status: false,
+                    message: 'Fail(Payload): ' + error,
+                    diagnosis: `This is error from server. Please contact server owner or open issue to https://github.com/l3lackMegas/webhook-auto-pull/issues`
+                })
+                return 0
+            }
+        } else {
             /* handle all errors here */
             console.log(`[${item_namespace}] Fail.` + error)
-
+    
             // Response success
             res.status(500)
             res.json({
                 status: false,
-                message: 'Fail: ' + error,
+                message: 'Fail: GitHub payload is ' + req.body.payload,
                 diagnosis: `This is error from server. Please contact server owner or open issue to https://github.com/l3lackMegas/webhook-auto-pull/issues`
             })
-            return 0
         }
 
         if(!payload.ref && !payload.zen) { // Check payload
