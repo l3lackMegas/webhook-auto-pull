@@ -42,7 +42,7 @@ app.post('/', async function (req, res) {
             }
         } else {
             /* handle all errors here */
-            console.log(`[${item_namespace}] Fail.` + error)
+            console.log(`[${item_namespace}] Fail. GitHub payload is ${req.body.payload}`)
     
             // Response success
             res.status(500)
