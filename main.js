@@ -35,8 +35,8 @@ app.post('/', async function (req, res) {
                 res.status(500)
                 res.json({
                     status: false,
-                    message: 'Fail(Payload): ' + error,
-                    diagnosis: `This is error from server. Please contact server owner or open issue to https://github.com/l3lackMegas/webhook-auto-pull/issues`
+                    message: 'Fail: Cannot parse GitHub payload. ' + error,
+                    diagnosis: `This error cause from server. We can't parse json from GitHub payload. Please open issue to https://github.com/l3lackMegas/webhook-auto-pull/issues`
                 })
                 return 0
             }
@@ -45,11 +45,11 @@ app.post('/', async function (req, res) {
             console.log(`[${item_namespace}] Fail. GitHub payload is ${req.body.payload}`)
     
             // Response success
-            res.status(500)
+            res.status(400)
             res.json({
                 status: false,
                 message: 'Fail: GitHub payload is ' + req.body.payload,
-                diagnosis: `This is error from server. Please contact server owner or open issue to https://github.com/l3lackMegas/webhook-auto-pull/issues`
+                diagnosis: `This error cause from GitHub payload. Please make sure that you set 'Content type' to 'application/x-www-form-urlencoded'.`
             })
         }
 
