@@ -23,7 +23,22 @@ app.post('/', async function (req, res) {
     if(item_namespace && req.query.key == CONFIGS.key) { // Check key from configs.json
 
         let repoInfo = CONFIGS.repo[item_namespace],
+            payload = {}
+        try {
             payload = JSON.parse(req.body.payload)
+        } catch (error) {
+            /* handle all errors here */
+            console.log(`[${item_namespace}] Fail.` + error)
+
+            // Response success
+            res.status(500)
+            res.json({
+                status: false,
+                message: 'Fail: ' + error,
+                diagnosis: `This is error from server. Please contact server owner or open issue to https://github.com/l3lackMegas/webhook-auto-pull/issues`
+            })
+            return 0
+        }
 
         if(!payload.ref && !payload.zen) { // Check payload
             console.log(`[${item_namespace}] Can't find refernce.`)
