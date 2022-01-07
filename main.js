@@ -92,14 +92,20 @@ app.post('/', async function (req, res) {
             const remote = `https://${USER}:${PASS}@${REPO}`; // Remote url
 
             try {
-                console.log(`[${item_namespace}] Initializing...: `)
+                console.log(`[${item_namespace}] Initializing...`)
                 await git().init();
-                console.log(`[${item_namespace}] Fetching...: `)
-                await git().fetch(remote, repoInfo.branch, (status)=>{
-                    console.log(`[${item_namespace}] Fetch Done (${status})!`)
-                    res.status(200)
-                    res.json({status: true, message: 'success'})
-                })
+                console.log(`[${item_namespace}] Fetching...`)
+                await (() => {
+                    return new Promise((resolve, reject) => {
+                        git().fetch(remote, repoInfo.branch, (err)=>{
+                            if(err) console.log(`[${item_namespace}] Fail.` + err)
+                            else console.log(`[${item_namespace}] Fetch Done!`)
+                            res.status(200)
+                            res.json({status: true, message: 'success'})
+                            resolve()
+                        })
+                    })
+                })()
             }
             catch (err) { 
                 /* handle all errors here */
@@ -121,8 +127,8 @@ app.post('/', async function (req, res) {
             git(repoInfo.path).pull(remote, repoInfo.branch).then(async (status) => { // Start pulling
                 
                 console.log(`[${item_namespace}] Pull Finish.`)
-                console.log(`[${item_namespace}] Webhook action to ${repoInfo.webhook}`)
                 if(repoInfo.webhook) {
+                    console.log(`[${item_namespace}] Webhook action to ${repoInfo.webhook}`)
                     const responseWebhook = await fetch(repoInfo.webhook);
                     console.log(`[${item_namespace}] ${responseWebhook.status == 200 ? "Finished " : "Failed"} with status ${responseWebhook.status}.`)
                 }
