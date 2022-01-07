@@ -97,12 +97,25 @@ app.post('/', async function (req, res) {
                 console.log(`[${item_namespace}] Fetching...`)
                 await (() => {
                     return new Promise((resolve, reject) => {
+                        let fetchResponse = false;
+                        setTimeout(() => {
+                            if(!fetchResponse) {
+                                fetchResponse = true;
+                                console.log(`[${item_namespace}] Fetch timeout (5s)...`)
+                                res.status(202)
+                                res.json({status: true, message: 'Request success, But fetch timeout (5s)...'})
+                                resolve()
+                            }
+                        }, 5000);
                         git().fetch(remote, repoInfo.branch, (err)=>{
-                            if(err) console.log(`[${item_namespace}] Fail.` + err)
-                            else console.log(`[${item_namespace}] Fetch Done!`)
-                            res.status(200)
-                            res.json({status: true, message: 'success'})
-                            resolve()
+                            if(!fetchResponse) {
+                                fetchResponse = true;
+                                if(err) console.log(`[${item_namespace}] Fail.` + err)
+                                else console.log(`[${item_namespace}] Fetch Done!`)
+                                res.status(200)
+                                res.json({status: true, message: 'success'})
+                                resolve()
+                            }
                         })
                     })
                 })()
