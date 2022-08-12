@@ -1,5 +1,5 @@
 # Webhook Auto-Pull
- The webhook script for make automaic pulling of your repo, And you can custom your script after pulled by edit `configs.json`.
+ The webhook script for automatic pulling from your repo. You can custom your script after pulled by edit `configs.json`.
 
 # Installation & Update
 ### Install script:
